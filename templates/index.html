@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Ads Analyzer</title>
+</head>
+<body>
+    <h1>Upload Meta Ads CSV</h1>
+
+    <input type="file" id="fileInput">
+    <button onclick="uploadFile()">Analyze</button>
+
+    <h2>Results</h2>
+    <pre id="result"></pre>
+
+<script>
+async function uploadFile() {
+    const fileInput = document.getElementById("fileInput");
+    const formData = new FormData();
+    formData.append("file", fileInput.files[0]);
+
+    const response = await fetch("/analyze", {
+        method: "POST",
+        body: formData
+    });
+
+    const data = await response.json();
+    document.getElementById("result").innerText =
+        JSON.stringify(data, null, 2);
+}
+</script>
+
+</body>
+</html>
